@@ -1,6 +1,6 @@
-import type { Cars } from "./cars.js";
+import {Cars} from "./cars.js";
 
 console.log("hello")
 
-const cars = { accelerate() {} } as Cars;
+const cars = new Cars();
 cars.accelerate()

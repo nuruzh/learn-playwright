@@ -1,7 +1,5 @@
-export type {Cars}
-
-class Cars {
+export class Cars {
     accelerate() {
-        console.log('brrmmm');
+        console.log('brrmmm brrmmm');
     }
 }
