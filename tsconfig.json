@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": [],
+    "types": ["node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -47,7 +47,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "playwright.config.ts",
+    "src/playwright.config.ts",
     "tests/**/*",
     "tests-examples/**/*"
   ]
