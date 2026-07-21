@@ -8,7 +8,7 @@ test ('has title', async ({page}) => {
 test ('get started link', async ({page}) => {
     await page.goto('https://formy-project.herokuapp.com/');
     
-    await page.locator('[href="/autocomplete"]').nth(1).click();
+    await page.getByRole('link', {name: 'Autocomplete'}).click();
 
     await expect(page).toHaveURL(/autocomplete/);
 });
