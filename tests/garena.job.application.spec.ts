@@ -54,4 +54,31 @@ test('Go To Garena Job Application Page', async ({ page }) => {
 
     // 4. Upload file transkrip ke input yang ada di dalam blok ke-2 tersebut
     await educationBlock2.locator('input[type="file"]').setInputFiles('C:\\Users\\Nezhio Altelier\\Downloads\\modified sertifikat mcei game designer\\merged Transkrip Nilai Game Design ICEI Nuruzh.pdf');
+
+    const skillsToSelect = {
+        'Skill 1': 'SQL',
+        'Skill 2': 'Javascript',
+        'Skill 3': 'Figma',
+        'Skill 4': 'HTML/CSS',
+        'Skill 5': 'C#',
+    }
+
+    const skillInput = page.getByPlaceholder('Skill');
+
+    for (const [skillKey, skillValue] of Object.entries(skillsToSelect)) {
+        // Fokuskan kursor ke dalam input
+        await skillInput.focus();
+        
+        // Ketik nama skill
+        await skillInput.pressSequentially(skillValue, { delay: 100 });
+        
+        // Jeda untuk menunggu animasi render dari Vue (sangat penting)
+        await page.waitForTimeout(500);
+        
+        // Tekan Enter untuk memilih (sesuai instruksi data-select dari HTML)
+        await skillInput.press('Enter');
+        
+        // Jeda untuk Vue memproses tag baru sebelum mengetik yang selanjutnya
+        await page.waitForTimeout(500);
+    }
 });
