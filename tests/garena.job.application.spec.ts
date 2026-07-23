@@ -21,9 +21,37 @@ test('Go To Garena Job Application Page', async ({ page }) => {
     
     // klik opsi yang muncul dari hasil pencarian dropdown
     await page.getByRole('option', { name: 'Others / Not Applicable' }).click();
-    // Upload file ke transkrip nilai
-    // nth(2) berarti mengambil elemen ke-3 dengan class tersebut (karena index dimulai dari 0)
-    await page.locator('input.upload__button-input').nth(2).setInputFiles('C:\\Users\\Nezhio Altelier\\OneDrive\\Documents\\Pribadi\\transkrip nilai\\Transkrip Nilai Nuruzh merged.pdf');
     
-    await expect(page.locator('text=Transkrip Nilai Nuruzh merged.pdf')).toBeVisible({ timeout: 5000 });
+    // Transcript on education 1
+    // 1. Cari blok education-content yang di dalamnya mengandung teks universitasmu (misal UPI)
+    // 1. SIMPAN pembungkus edukasi ke-1 ke dalam variabel
+    // 1. (Asumsi kamu sudah menjalankan kode upload Resume Utama di baris sebelumnya)
+
+    // 2. Suruh Playwright MENUNGGU maksimal 15 detik sampai jumlah blok edukasi sesuai resume yang diupload (misal 2 blok)
+    await expect(page.locator('.education-content')).toHaveCount(2, { timeout: 15000 });
+
+    // 3. Setelah Playwright memastikan ada 2 blok, SEKARANG kita aman menggunakan nth(0)
+    const educationBlock1 = page.locator('.education-content').nth(0);
+
+    // 4. Upload file transkrip ke input yang ada di dalam blok ke-1 tersebut
+    await educationBlock1.locator('input[type="file"]').setInputFiles('C:\\Users\\Nezhio Altelier\\OneDrive\\Documents\\Pribadi\\transkrip nilai\\Transkrip Nilai Nuruzh merged.pdf');
+
+    // Education 2 degree classification
+    const degreeInput2 = page.getByPlaceholder('Degree Classification').nth(1);
+    await degreeInput2.pressSequentially('Others / Not Applicable', {delay: 100});
+    await page.getByRole('option', { name: 'Others / Not Applicable' }).click();
+
+    // Transcript on education 2
+    // 1. Cari blok education-content yang di dalamnya mengandung teks universitasmu (misal UPI)
+    // 1. SIMPAN pembungkus edukasi ke-2 ke dalam variabel
+    // 1. (Asumsi kamu sudah menjalankan kode upload Resume Utama di baris sebelumnya)
+
+    // 2. Suruh Playwright MENUNGGU maksimal 15 detik sampai jumlah blok edukasi menjadi 2
+    await expect(page.locator('.education-content')).toHaveCount(2, { timeout: 15000 });
+
+    // 3. Setelah Playwright memastikan ada 2 blok, SEKARANG kita aman menggunakan nth(1)
+    const educationBlock2 = page.locator('.education-content').nth(1);
+
+    // 4. Upload file transkrip ke input yang ada di dalam blok ke-2 tersebut
+    await educationBlock2.locator('input[type="file"]').setInputFiles('C:\\Users\\Nezhio Altelier\\Downloads\\modified sertifikat mcei game designer\\merged Transkrip Nilai Game Design ICEI Nuruzh.pdf');
 });
