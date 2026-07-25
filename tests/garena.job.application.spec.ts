@@ -81,4 +81,18 @@ test('Go To Garena Job Application Page', async ({ page }) => {
         // Jeda untuk Vue memproses tag baru sebelum mengetik yang selanjutnya
         await page.waitForTimeout(500);
     }
+    await skillInput.press('Escape'); // Menghilangkan fokus dari input skill setelah selesai looping
+
+    // Other Information - Sponsorship
+    // 1. Cari elemen pembungkus yang mengandung teks pertanyaan, lalu cari dropdown di dalamnya
+    const questionContainer = page.locator('div')
+    .filter({ hasText: 'Do you need, or will you need in the future, any immigration-related support or sponsorship from us to legally work in the country you are applying to?' })
+    .locator('.form-item__select')
+    .nth(16); // Gunakan first() untuk berjaga-jaga jika ada lebih dari 1 match di dalam container
+
+    // 2. Klik dropdown tersebut
+    await questionContainer.click();
+
+    // 3. Pilih opsi "No"
+    await page.getByRole('option', { name: 'No', exact: true }).click();
 });
