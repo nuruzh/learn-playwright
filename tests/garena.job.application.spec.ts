@@ -95,4 +95,17 @@ test('Go To Garena Job Application Page', async ({ page }) => {
 
     // 3. Pilih opsi "No"
     await page.getByRole('option', { name: 'No', exact: true }).click();
+
+    // Other Information - How did you know about this role?
+    /// 1. Cari elemen pembungkus yang mengandung teks pertanyaan, lalu cari dropdown di dalamnya
+    const questionContainer2 = page.locator('div')
+    .filter({ hasText: 'How did you know about this role?' })
+    .locator('.form-row.form-row--align-top > div:nth-child(2) > .form-select > .multiselect > .multiselect__tags')
+    .getByText('Channel', { exact: true })
+
+    await questionContainer2.click();
+    await questionContainer2.focus();
+    await questionContainer2.locator('#null-6 > span').click();
+    // await questionContainer2.getByRole('option', { name: 'Garena LinkedIn Page' }).click();
+    //await questionContainer2.getByText('Garena LinkedIn Page').click();
 });
