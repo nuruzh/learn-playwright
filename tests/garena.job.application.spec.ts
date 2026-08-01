@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Go To Garena Job Application Page', async ({ page }) => {
-    await page.goto('https://careers.garena.com/global/application/J02167389?src=LinkedIn');
+    await page.goto('https://careers.garena.com/global/application/J02167389');
     await expect(page).toHaveURL(/J02167389/);
     // Cari elemen input yang tipe-nya file, lalu set file-nya
     await page.locator('input[type="file"]').first().setInputFiles('C:\\Users\\Nezhio Altelier\\OneDrive\\Documents\\Pribadi\\Resume\\resume nuruzh\\resume 2026\\Resume_Nuruzh Zhohiril Islami_Quality Assurance.pdf');
@@ -105,7 +105,12 @@ test('Go To Garena Job Application Page', async ({ page }) => {
 
     await questionContainer2.click();
     await questionContainer2.focus();
-    await questionContainer2.locator('#null-6 > span').click();
-    // await questionContainer2.getByRole('option', { name: 'Garena LinkedIn Page' }).click();
-    //await questionContainer2.getByText('Garena LinkedIn Page').click();
+    for (let i = 0; i < 4; i++) {
+        await questionContainer2.press('ArrowDown');
+    }
+    await questionContainer2.press('Enter');
+
+    await page.getByRole('checkbox', { name: 'By proceeding, I confirm that' }).click();
+
+    await page.getByRole('button', { name: 'Submit' }).click();
 });
